@@ -10,18 +10,18 @@
 
             <div class="input-group">
                 <div class="input-group-addon">@</div>
-                <input class="form-control" type="text" placeholder="Twitter handle" id="twitter">
+                <input class="form-control" type="text" placeholder="Twitter handle" id="twitter" ng-model="linkRequest.twitter">
             </div>
         </div>
         <div class="form-group">
             <label for="facebook">Facebook</label>
-            <input type="text" class="form-control" id="facebook" placeholder="Facebook login">
+            <input type="text" class="form-control" id="facebook" placeholder="Facebook login" ng-model="linkRequest.facebook">
         </div>
         <div class="form-group">
             <label for="googleplus">Google+</label>
-            <input type="text" class="form-control" id="googleplus" placeholder="Google+ login">
+            <input type="text" class="form-control" id="googleplus" placeholder="Google+ login" ng-model="linkRequest.googleplus">
         </div>
-        <button type="submit" class="btn btn-success" ng-href="#">Generate!</button>
+        <button type="submit" class="btn btn-success" ng-click="generate()">Generate!</button>
         <span class="help-block">Once you press Generate! we will provide you with a link that you
         can send to your favorite celebrity</span>
     </form>
