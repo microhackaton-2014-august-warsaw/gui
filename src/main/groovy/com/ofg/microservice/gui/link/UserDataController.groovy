@@ -41,7 +41,7 @@ class UserDataController {
             log.info(linkURL)
             String response = restTemplate.putForObject(linkURL, createEntity(linkRequest), String)
 
-            return new ResponseEntity<SocialUrl>(new SocialUrl(url: response), HttpStatus.OK)
+            return new ResponseEntity<SocialUrl>(new SocialUrl(id: response), HttpStatus.OK)
         }
 
         return new ResponseEntity<SocialUrl>(HttpStatus.INTERNAL_SERVER_ERROR)

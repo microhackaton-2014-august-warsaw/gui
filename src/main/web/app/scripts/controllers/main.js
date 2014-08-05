@@ -15,18 +15,18 @@ angular.module('youShouldRememberMeUiApp')
             });
 
             $scope.linkRequest = {
-                twitter: "",
-                facebook: "",
-                googleplus: ""
+                twitter: '',
+                facebook: '',
+                googleplus: ''
             };
 
             $scope.generate = function() {
                 link.link({}, $scope.linkRequest, function(data){
-                    console.log("ok, response:");
+                    console.log('ok, response:');
                     console.log(data);
                 },
                 function() {
-                    console.log("bad :(");
+                    console.log('bad :(');
                 });
-            }
+            };
         });
