@@ -9,6 +9,7 @@ buildscript {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.1.3.RELEASE'
         classpath 'com.ofg:uptodate-gradle-plugin:0.0.3'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.6.0'
+        classpath 'com.moowork.gradle:gradle-node-plugin:0.6'
     }
 }
 
@@ -17,6 +18,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'maven'
 apply plugin: 'sonar-runner'
 apply plugin: 'uptodate'
+apply plugin: 'com.moowork.node'
 
 ext.versionPrefix = "CD"
 ext.buildNrLoc = project.hasProperty('buildNr') ? "${buildNr}" : "000"
@@ -28,7 +30,7 @@ uploadArchives {
             authentication(userName: 'deployment', password: 'deployment123')
         }
         pom.version = "${currentVersion}"
-        pom.artifactId = "matcher"
+        pom.artifactId = "gui"
         pom.groupId = "pl.microhackaton"
     }
 }
@@ -187,3 +189,39 @@ task runMocks << {
 task stopMocks << {
     "http://localhost:$zookeeperMockPort/stop".toURL().readLines()
 }
+
+def webDir = new File(projectDir, "src/main/web")
+
+node {
+    // Version of node to use.
+    version = '0.10.29'
+
+    // Enabled the automatic download. False is the default (for now).
+    download = true
+
+    workDir = webDir
+}
+
+task installAllNpm(type: NpmTask) {
+    workingDir = webDir
+    args = ['install']
+}
+
+task bower(type: NodeTask) {
+    script = new File(webDir, 'node_modules/bower/bin/bower')
+    workingDir = webDir
+    args = ['install']
+}
+
+task grunt(type: NodeTask) {
+    script = new File(webDir, 'node_modules/grunt-cli/bin/grunt')
+    workingDir = webDir
+}
+
+// run bower and grunt to build the web
+grunt.dependsOn bower
+bower.dependsOn installAllNpm
+jar.dependsOn grunt
+
+// make sure fat jar is built before uploading
+uploadArchives.dependsOn build

@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/microhackaton/matcher.svg?branch=master)](https://travis-ci.org/microhackaton/matcher)
-[![Coverage Status](https://coveralls.io/repos/microhackaton/matcher/badge.png)](https://coveralls.io/r/microhackaton/matcher)
-user-data-holder
+[![Build Status](https://travis-ci.org/microhackaton/gui.svg?branch=master)](https://travis-ci.org/microhackaton/gui)
+[![Coverage Status](https://coveralls.io/repos/microhackaton/gui/badge.png)](https://coveralls.io/r/microhackaton/gui)
+gui
 =================
 
-Microservice that asks collectors to provide meaningful data
+Microservice with the gui for You Should Remember Me
