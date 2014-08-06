@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Profile
 @TypeChecked
 @Configuration
 @Import(ServiceResolverConfiguration)
-@Profile([Profiles.PRODUCTION, Profiles.TEST, Profiles.DEVELOPMENT])
+@Profile([Profiles.PRODUCTION, Profiles.DEVELOPMENT])
 class ServiceDiscoveryConfiguration {
 }
