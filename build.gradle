@@ -6,9 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.1.3.RELEASE'
-        classpath 'com.ofg:uptodate-gradle-plugin:0.0.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:0.6.0'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.1.4.RELEASE'
+        classpath 'com.ofg:uptodate-gradle-plugin:0.0.5'
+        if(project.hasProperty("coverage")) { classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:1.0.2' }
         classpath 'com.moowork.gradle:gradle-node-plugin:0.6'
     }
 }
@@ -141,7 +141,7 @@ if(project.hasProperty("coverage")) {
     apply plugin: 'codenarc'
     apply plugin: 'jacoco'
     apply plugin: 'sonar-runner'
-    apply plugin: 'coveralls'
+    apply plugin: 'com.github.kt3k.coveralls'
 
     jacoco {
         toolVersion = "0.7.0.201403182114"
