@@ -1,16 +1,13 @@
 package com.ofg.microservice.gui.link
+
 import com.ofg.infrastructure.discovery.ServiceResolver
-import com.ofg.microservice.config.web.RestTemplate
+import com.ofg.infrastructure.web.resttemplate.RestTemplate
 import com.ofg.microservice.gui.GuiAPIs
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.transform.TypeChecked
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod

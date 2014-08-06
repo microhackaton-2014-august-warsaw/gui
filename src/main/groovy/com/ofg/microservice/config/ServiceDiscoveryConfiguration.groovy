@@ -1,6 +1,6 @@
-package com.ofg.microservice.infrastructure.discovery
+package com.ofg.microservice.config
 import com.ofg.infrastructure.discovery.ServiceResolverConfiguration
-import com.ofg.microservice.config.Profiles
+import com.ofg.microservice.Profiles
 import groovy.transform.TypeChecked
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
