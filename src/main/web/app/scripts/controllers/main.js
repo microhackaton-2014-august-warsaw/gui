@@ -7,6 +7,19 @@
  * # MainCtrl
  * Controller of the youShouldRememberMeUiApp
  */
+var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
+
+    $scope.link = $location.absUrl() + link;
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
 angular.module('youShouldRememberMeUiApp')
         .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal) {
             var link = $resource('/rest/link/:url', {}, {
@@ -42,7 +55,7 @@ angular.module('youShouldRememberMeUiApp')
             };
 
             var showLink = function () {
-                var modalInstance = $modal.open({
+                $modal.open({
                     templateUrl: 'modalWithLink.html',
                     controller: LinkModalCtrl,
                     size: 'lg',
@@ -54,16 +67,3 @@ angular.module('youShouldRememberMeUiApp')
                 });
             };
         });
-
-var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
-
-    $scope.link = $location.absUrl() + link;
-
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-};
