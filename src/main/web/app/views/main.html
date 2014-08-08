@@ -33,4 +33,19 @@
         <span class="help-block">Once you press {{personToMatch ? 'Compare' : 'Generate'}}! we will provide you with
             {{personToMatch ? 'possible sources you might know ths peasant from' : 'a link that you can send to your favorite celebrity'}}.</span>
     </form>
+
+    <script type="text/ng-template" id="modalWithLink.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Get to your celebrity!</h3>
+        </div>
+        <div class="modal-body">
+            <div class="jumbotron">
+                <p>Share this link <a href="{{link}}">{{link}}</a></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>
