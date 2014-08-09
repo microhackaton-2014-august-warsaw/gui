@@ -1,8 +1,8 @@
-package com.ofg.microservice.gui.link
+package com.ofg.microservice.gui
 import com.ofg.infrastructure.discovery.ServiceResolver
 import com.ofg.infrastructure.web.filter.correlationid.CorrelationIdHolder
 import com.ofg.infrastructure.web.resttemplate.RestTemplate
-import com.ofg.microservice.gui.GuiAPIs
+import com.ofg.microservice.gui.link.ContentTypeInterceptor
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpEntity
@@ -21,14 +21,14 @@ import javax.servlet.http.HttpServletRequest
 @RestController("/rest")
 @RequestMapping("/rest")
 @Slf4j
-class UserDataController {
+class ProxyController {
 
     private ServiceResolver serviceResolver
 
     private RestTemplate restTemplate = new RestTemplate()
 
     @Autowired
-    UserDataController(ServiceResolver serviceResolver) {
+    ProxyController(ServiceResolver serviceResolver) {
         this.serviceResolver = serviceResolver
     }
 
@@ -73,6 +73,15 @@ class UserDataController {
 
         return handleRequest('userDataHolder',
                 {link -> return restTemplate.getForObject(link, String)},
+                request)
+    }
+
+    @RequestMapping(value = '/match/**', method = RequestMethod.PUT, produces = GuiAPIs.API_V1, consumes = GuiAPIs.API_V1)
+    ResponseEntity<String> matcherPUT(@RequestBody String json, HttpServletRequest request) {
+        log.info("PUT PUT PUT")
+
+        return handleRequest('matcher',
+                {link -> return restTemplate.putForObject(link, createEntity(json), String)},
                 request)
     }
 
