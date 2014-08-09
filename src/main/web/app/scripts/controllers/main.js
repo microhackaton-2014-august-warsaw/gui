@@ -42,6 +42,7 @@ angular.module('youShouldRememberMeUiApp')
 
             if ($routeParams.id) {
                 $scope.personToMatch = link.post({'url': $routeParams.id}, '{}');
+                delete $scope.personToMatch['version'];
             }
 
             $scope.link = '';
