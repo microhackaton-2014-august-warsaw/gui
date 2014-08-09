@@ -52,7 +52,7 @@ class ProxyController {
         log.info("PUT PUT PUT")
 
         return handleRequest('userDataHolder',
-                {link -> return restTemplate.putForObject(link, createEntity(json), String)},
+                {link -> return restTemplate.putForObject(link, createEntity(json, GuiAPIs.USER_DATA_HOLDER_V1), String)},
                 request)
     }
 
@@ -61,7 +61,7 @@ class ProxyController {
         log.info("POST POST POST")
 
         return handleRequest('userDataHolder',
-                {link -> return restTemplate.postForObject(link, createEntity(json), String)},
+                {link -> return restTemplate.postForObject(link, createEntity(json, GuiAPIs.USER_DATA_HOLDER_V1), String)},
                 request)
     }
 
@@ -81,14 +81,14 @@ class ProxyController {
         log.info("PUT PUT PUT")
 
         return handleRequest('matcher',
-                {link -> return restTemplate.putForObject(link, createEntity(json), String)},
+                {link -> return restTemplate.putForObject(link, createEntity(json, GuiAPIs.MATCHER_VINFINITY), String)},
                 request)
     }
 
-    private HttpEntity<Object> createEntity(Object object) {
+    private HttpEntity<Object> createEntity(Object object, String contentType) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(CorrelationIdHolder.CORRELATION_ID_HEADER, CorrelationIdHolder.get())
-        headers.setContentType(MediaType.valueOf(GuiAPIs.USER_DATA_HOLDER_V1));
+        headers.setContentType(MediaType.valueOf(contentType));
         return new HttpEntity<Object>(object, headers);
     }
 }
