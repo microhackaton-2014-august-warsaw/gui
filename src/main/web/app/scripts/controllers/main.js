@@ -21,16 +21,7 @@ var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
 };
 
 angular.module('youShouldRememberMeUiApp')
-        .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal, WebSocket, $timeout) {
-            WebSocket.onopen(function() {
-                console.log('connection');
-                WebSocket.send('message')
-            });
-
-            WebSocket.onmessage(function(event) {
-                console.log('message: ', event.data);
-            });
-
+        .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal, $timeout) {
             var link = $resource('/rest/link/:url', {}, {
                 put: {method: 'PUT', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
                     responseType: 'application/vnd.gui.v1+json'},
@@ -93,7 +84,7 @@ angular.module('youShouldRememberMeUiApp')
 
             };
 
-            $scope.sendToMatcher = function(dataToMatch) {
+            $scope.sendToMatcher = function() {
                 //todo
             };
 

@@ -16,14 +16,8 @@ angular
             'ngRoute',
             'ngSanitize',
             'ngTouch',
-            'ui.bootstrap',
-            'angular-websocket'
-        ]).config(function (WebSocketProvider) {
-            WebSocketProvider
-                    .prefix('')
-                    .uri('ws://echo.websocket.org/');
-        })
-        .config(function ($routeProvider) {
+            'ui.bootstrap'
+        ]).config(function ($routeProvider) {
             $routeProvider
                     .when('/', {
                         templateUrl: 'views/main.html',
