@@ -38,6 +38,13 @@
             {{personToMatch ? 'possible sources you might know ths peasant from' : 'a link that you can send to your favorite celebrity'}}.</span>
     </form>
 
+    <div ng-show="results.length > 0">
+        <h3>Results:</h3>
+        <ul ng-repeat="result in results track by $index">
+            <li>{{result}}</li>
+        </ul>
+    </div>
+
     <script type="text/ng-template" id="modalWithLink.html">
         <div class="modal-header">
             <h3 class="modal-title">Get to your celebrity!</h3>

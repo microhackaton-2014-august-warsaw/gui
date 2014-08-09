@@ -21,11 +21,25 @@ var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
 };
 
 angular.module('youShouldRememberMeUiApp')
-        .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal) {
+        .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal, WebSocket, $timeout) {
+            WebSocket.onopen(function() {
+                console.log('connection');
+                WebSocket.send('message')
+            });
+
+            WebSocket.onmessage(function(event) {
+                console.log('message: ', event.data);
+            });
+
             var link = $resource('/rest/link/:url', {}, {
                 put: {method: 'PUT', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
                     responseType: 'application/vnd.gui.v1+json'},
                 post: {method: 'POST', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
+                    responseType: 'application/vnd.gui.v1+json'}
+            });
+
+            var pull = $resource('/rest/results/pull', {}, {
+                pull: {method: 'POST', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
                     responseType: 'application/vnd.gui.v1+json'}
             });
 
@@ -34,6 +48,9 @@ angular.module('youShouldRememberMeUiApp')
             }
 
             $scope.link = '';
+            $scope.pairId = '';
+
+            $scope.results = [];
 
             $scope.linkRequest = {
                 twitter: '',
@@ -56,7 +73,13 @@ angular.module('youShouldRememberMeUiApp')
                                         function (data) {
                                             console.log('ok, response from pair:');
                                             console.log(data);
-                                            $scope.link = data.string;
+                                            $scope.pairId = data.string;
+                                            $scope.sendToMatcher({
+                                                pairId: data.string,
+                                                peasant: $scope.personToMatch,
+                                                celebrity: $scope.linkRequest
+                                            });
+                                            $scope.startPullingResponse();
                                         },
                                         function () {
                                             console.log('bad pair :(');
@@ -68,6 +91,23 @@ angular.module('youShouldRememberMeUiApp')
                         });
 
 
+            };
+
+            $scope.sendToMatcher = function(dataToMatch) {
+                //todo
+            };
+
+            $scope.startPullingResponse = function() {
+                pull.pull({}, {'id': $scope.pairId}, function(pulledData){
+                    if (pulledData.result) {
+                        console.log('gut gut gut');
+                        $scope.results.push(pulledData.result);
+                    }
+                }, function() {
+                    console.log('Pulling error');
+                });
+
+                $timeout($scope.startPullingResponse, 1000);
             };
 
             var showLink = function () {

@@ -1,10 +1,10 @@
-package com.ofg.microservice.gui.link
+package com.ofg.microservice.gui
 
 import groovy.transform.Canonical
 import groovy.transform.TypeChecked
 
 @TypeChecked
 @Canonical
-class SocialUrl {
+class IdHolder {
     String id
 }

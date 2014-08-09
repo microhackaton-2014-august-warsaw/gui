@@ -29,7 +29,9 @@ ext {
     versionPrefix = "CD"
     buildNrLoc = project.hasProperty('buildNr') ? "${buildNr}" : "000"
     currentVersion = "${versionPrefix}-${buildNrLoc}"
-    
+    artifactGroupId = "pl.microhackaton"
+    serverPort = 8909
+
     groovyVersion = '2.3.6'
     spockVersion = '0.7-groovy-2.0'
     springBootVersion = '1.1.3.RELEASE'
@@ -53,6 +55,13 @@ uploadArchives {
         pom.artifactId = project.name
         pom.groupId = "pl.microhackaton"
     }
+}
+
+task deployToAws(dependsOn: uploadArchives) << {
+    String json = """{"artifactId": "${project.name}", "groupId": "$artifactGroupId","version": "$currentVersion",
+                     "jvmParams": "-Dspring.profiles.active=prod -Dserver.port=$serverPort -Dservice.resolver.url=zookeeper.microhackathon.pl:2181"}"""
+    println "Sending the following json [$json]"
+    new groovyx.net.http.HTTPBuilder('http://54.73.40.79:18081/deploy').post([body: json, headers: ['Content-Type': 'application/json']])
 }
 
 task addHashFile << {
