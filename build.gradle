@@ -74,6 +74,10 @@ task addHashFile << {
 jar {
     dependsOn addHashFile
     from "commitHash.txt"
+
+    from(fileTree("src/main/web/dist")) {
+        into "public"
+    }
 }
 
 run {
