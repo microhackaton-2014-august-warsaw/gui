@@ -2,7 +2,8 @@
     "pl": {
         "this": "pl/microhackaton/gui",
         "dependencies": {
-            "userDataHolder": "pl/microhackaton/user-data-holder"
+            "userDataHolder": "pl/microhackaton/user-data-holder",
+            "matcher": "pl/microhackaton/matcher"
         }
     }
 }

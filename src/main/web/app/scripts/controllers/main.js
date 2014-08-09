@@ -29,6 +29,11 @@ angular.module('youShouldRememberMeUiApp')
                     responseType: 'application/vnd.gui.v1+json'}
             });
 
+            var match = $resource('/rest/match', {}, {
+                put: {method: 'PUT', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
+                    responseType: 'application/vnd.gui.v1+json'}
+            });
+
             var pull = $resource('/rest/results/pull', {}, {
                 pull: {method: 'POST', headers: {'Content-Type': 'application/vnd.gui.v1+json'},
                     responseType: 'application/vnd.gui.v1+json'}
@@ -85,8 +90,13 @@ angular.module('youShouldRememberMeUiApp')
 
             };
 
-            $scope.sendToMatcher = function() {
-                //todo
+            $scope.sendToMatcher = function(loveRelationship) {
+                match.put({}, loveRelationship, function(data) {
+                    console.log("match request sent");
+                    console.log(data);
+                }, function() {
+                    console.log("match req failed :(");
+                });
             };
 
             $scope.startPullingResponse = function() {

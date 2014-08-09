@@ -1,4 +1,4 @@
-package com.ofg.microservice.gui.link
+package com.ofg.microservice.gui.matcher
 import com.ofg.infrastructure.discovery.ServiceResolver
 import com.ofg.infrastructure.web.filter.correlationid.CorrelationIdHolder
 import com.ofg.infrastructure.web.resttemplate.RestTemplate
@@ -21,14 +21,14 @@ import javax.servlet.http.HttpServletRequest
 @RestController("/rest")
 @RequestMapping("/rest")
 @Slf4j
-class UserDataController {
+class MatcherController {
 
     private ServiceResolver serviceResolver
 
     private RestTemplate restTemplate = new RestTemplate()
 
     @Autowired
-    UserDataController(ServiceResolver serviceResolver) {
+    MatcherController(ServiceResolver serviceResolver) {
         this.serviceResolver = serviceResolver
     }
 
@@ -47,39 +47,19 @@ class UserDataController {
         return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @RequestMapping(value = '/link/**', method = RequestMethod.PUT, produces = GuiAPIs.API_V1, consumes = GuiAPIs.API_V1)
-    ResponseEntity<String> linkPUT(@RequestBody String json, HttpServletRequest request) {
+    @RequestMapping(value = '/match/**', method = RequestMethod.PUT, produces = GuiAPIs.API_V1, consumes = GuiAPIs.API_V1)
+    ResponseEntity<String> matcherPUT(@RequestBody String json, HttpServletRequest request) {
         log.info("PUT PUT PUT")
 
-        return handleRequest('userDataHolder',
+        return handleRequest('matcher',
                 {link -> return restTemplate.putForObject(link, createEntity(json), String)},
-                request)
-    }
-
-    @RequestMapping(value = '/link/**', method = RequestMethod.POST, produces = GuiAPIs.API_V1, consumes = GuiAPIs.API_V1)
-    ResponseEntity<String> linkPOST(@RequestBody String json, HttpServletRequest request) {
-        log.info("POST POST POST")
-
-        return handleRequest('userDataHolder',
-                {link -> return restTemplate.postForObject(link, createEntity(json), String)},
-                request)
-    }
-
-    @RequestMapping(value = '/link/**', method = RequestMethod.GET, produces = GuiAPIs.API_V1, consumes = GuiAPIs.API_V1)
-    ResponseEntity<String> linkGET(HttpServletRequest request) {
-        log.info("GET GET GET")
-
-        restTemplate.setInterceptors([new ContentTypeInterceptor(GuiAPIs.USER_DATA_HOLDER_V1)])
-
-        return handleRequest('userDataHolder',
-                {link -> return restTemplate.getForObject(link, String)},
                 request)
     }
 
     private HttpEntity<Object> createEntity(Object object) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(CorrelationIdHolder.CORRELATION_ID_HEADER, CorrelationIdHolder.get())
-        headers.setContentType(MediaType.valueOf(GuiAPIs.USER_DATA_HOLDER_V1));
+        headers.setContentType(MediaType.valueOf(GuiAPIs.MATCHER_VINFINITY));
         return new HttpEntity<Object>(object, headers);
     }
 }
