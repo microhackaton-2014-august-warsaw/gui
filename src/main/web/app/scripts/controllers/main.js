@@ -92,10 +92,10 @@ angular.module('youShouldRememberMeUiApp')
 
             $scope.sendToMatcher = function(loveRelationship) {
                 match.put({}, loveRelationship, function(data) {
-                    console.log("match request sent");
+                    console.log('match request sent');
                     console.log(data);
                 }, function() {
-                    console.log("match req failed :(");
+                    console.log('match req failed :(');
                 });
             };
 
