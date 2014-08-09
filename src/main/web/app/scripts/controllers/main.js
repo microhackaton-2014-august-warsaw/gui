@@ -48,7 +48,8 @@ angular.module('youShouldRememberMeUiApp')
                 facebook: '',
                 googleplus: '',
                 name: '',
-                rss: ''
+                rss: '',
+                github:''
             };
 
             $scope.generate = function () {

@@ -33,6 +33,10 @@
             <label for="googleplus">Google+</label>
             <input type="text" class="form-control" id="googleplus" placeholder="Google+ login" ng-model="linkRequest.googleplus">
         </div>
+        <div class="form-group">
+            <label for="github">github</label>
+            <input type="text" class="form-control" id="github" placeholder="github account" ng-model="linkRequest.github">
+        </div>
         <button type="submit" class="btn btn-success" ng-click="generate()">{{personToMatch ? 'Compare' : 'Generate'}}!</button>
         <span class="help-block">Once you press {{personToMatch ? 'Compare' : 'Generate'}}! we will provide you with
             {{personToMatch ? 'possible sources you might know ths peasant from' : 'a link that you can send to your favorite celebrity'}}.</span>

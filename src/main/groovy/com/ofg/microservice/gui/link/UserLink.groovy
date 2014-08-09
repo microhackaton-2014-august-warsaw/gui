@@ -10,4 +10,5 @@ class UserLink {
     String facebook
     String googleplus
     String name
+    String github
 }
