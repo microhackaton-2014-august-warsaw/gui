@@ -8,7 +8,6 @@
  * Controller of the youShouldRememberMeUiApp
  */
 var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
-
     $scope.link = $location.absUrl() + link;
 
     $scope.ok = function () {
@@ -19,6 +18,8 @@ var LinkModalCtrl = function ($scope, $modalInstance, link, $location) {
         $modalInstance.dismiss('cancel');
     };
 };
+
+LinkModalCtrl.$inject = ['$scope', '$modalInstance', 'link', '$location'];
 
 angular.module('youShouldRememberMeUiApp')
         .controller('MainCtrl', function ($scope, $resource, $routeParams, $modal, $timeout) {
