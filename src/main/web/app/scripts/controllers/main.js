@@ -39,19 +39,35 @@ angular.module('youShouldRememberMeUiApp')
                 twitter: '',
                 facebook: '',
                 googleplus: '',
-                name: ''
+                name: '',
+                rss: ''
             };
 
-            $scope.generate = function() {
-                link.put({'url': ''}, $scope.linkRequest, function(data){
-                    console.log('ok, response:');
-                    console.log(data);
-                    $scope.link = data.string;
-                    showLink();
-                },
-                function() {
-                    console.log('bad :(');
-                });
+            $scope.generate = function () {
+                link.put({'url': ''}, $scope.linkRequest, function (data) {
+                            console.log('ok, response:');
+                            console.log(data);
+                            $scope.link = data.string;
+
+                            if (!$scope.personToMatch) {
+                                showLink();
+                            } else {
+                                link.put({'url': 'pair'}, {celebrityId: data.string, peasantId: $scope.personToMatch.id},
+                                        function (data) {
+                                            console.log('ok, response from pair:');
+                                            console.log(data);
+                                            $scope.link = data.string;
+                                        },
+                                        function () {
+                                            console.log('bad pair :(');
+                                        });
+                            }
+                        },
+                        function () {
+                            console.log('bad :(');
+                        });
+
+
             };
 
             var showLink = function () {
