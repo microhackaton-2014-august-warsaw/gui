@@ -1,5 +1,6 @@
 package com.ofg.microservice.gui.link
 import com.ofg.infrastructure.discovery.ServiceResolver
+import com.ofg.infrastructure.web.filter.correlationid.CorrelationIdHolder
 import com.ofg.infrastructure.web.resttemplate.RestTemplate
 import com.ofg.microservice.gui.GuiAPIs
 import groovy.util.logging.Slf4j
@@ -77,6 +78,7 @@ class UserDataController {
 
     private HttpEntity<Object> createEntity(Object object) {
         HttpHeaders headers = new HttpHeaders();
+        headers.add(CorrelationIdHolder.CORRELATION_ID_HEADER, CorrelationIdHolder.get())
         headers.setContentType(MediaType.valueOf(GuiAPIs.USER_DATA_HOLDER_V1));
         return new HttpEntity<Object>(object, headers);
     }
