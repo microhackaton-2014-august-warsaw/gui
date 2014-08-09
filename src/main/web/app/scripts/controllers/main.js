@@ -41,7 +41,7 @@ angular.module('youShouldRememberMeUiApp')
             $scope.link = '';
             $scope.pairId = '';
 
-            $scope.results = [];
+            $scope.results = null;
 
             $scope.linkRequest = {
                 twitter: '',
@@ -91,9 +91,10 @@ angular.module('youShouldRememberMeUiApp')
 
             $scope.startPullingResponse = function() {
                 pull.pull({}, {'id': $scope.pairId}, function(pulledData){
-                    if (pulledData.result) {
-                        console.log('gut gut gut');
-                        $scope.results.push(pulledData.result);
+                    if (pulledData.pairId) {
+                        $scope.results = pulledData;
+                        console.log(pulledData);
+                        console.log('gut gut gut pull');
                     }
                 }, function() {
                     console.log('Pulling error');

@@ -26,7 +26,7 @@ class ResultsController {
             consumes = GuiAPIs.API_V1,
             produces = GuiAPIs.API_V1)
     String send(@RequestBody MatchingResult result) {
-        storage.add(result.id, result)
+        storage.add(result.pairId, result)
 
         return "accepted"
     }
